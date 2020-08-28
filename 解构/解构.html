@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>解构</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * 对象解构
+         */
+        let node = {
+            type: "Identifier",
+            name: "foo"
+        }
+        // 获取对象的属性，但是名字都一样。显得繁琐
+        // let type = node.type;
+        // let name = node.name;
+        let { type, name } = node;
+
+        // 修改值,
+        let type2 = "type2";
+        let name2 = "name2";
+        let otherEl = "undefined";
+        let node2 = {
+            type2: "Identifier2",
+            name2: "foo2"
+        };
+        // 通过()转化为表达式,如果node2为null或undefined会报错,没有的属性不会更改。同时可以添加默认值操作
+        ({ type2, name2, otherEl = "可以添加默认值" } = node2);
+
+
+        // 非同名元素替换
+        let node3 = {
+            type3: "Identifier3",
+            name3: "foo3"
+        }
+        let { type3: localType, name3: localName, xxel: localEl = "同样可以添加默认值操作" } = node3;
+
+
+        /**
+        * 嵌套解构1
+        */
+        let newNode = {
+            type: "newNode",
+            name: "newName",
+            innerObj: {
+                face: {
+                    heart: "yes",
+                    color: "yellow"
+                }
+            }
+        }
+        let { innerObj: { face } } = newNode;
+        let { innerObj: { face: face1 } } = newNode;
+        let { innerObj: { face: { heart, color } } } = newNode;
+
+        /**
+         * 数组解构
+         */
+        let colorArr = ["#FF0000","#0000FF","#ffff00","#ea5dcc"];
+        let red = colorArr[0];
+        // 如果不想用第一个，直接不填跳过
+        let [,blue,yellow,pink] = colorArr;
+        console.log(red,blue,yellow,pink);
+
+        // 修改值
+        blue = "";
+        yellow = "";
+        pink = "";
+        console.log(blue,yellow,pink);
+        // 同样可以添加默认值
+        [red = colorArr[0],blue,yellow,pink] = colorArr;
+        console.log(blue,yellow,pink);
+
+        /**
+         * 交换变量
+         */
+        // ES5中使用
+        let a = "1",
+            b = 0,
+            temp = null;
+        // temp = a;
+        // a = b;
+        // b = temp;
+        // 通过解构赋值
+        [a,b] = [b,a];
+
+        // 嵌套解构
+        let stuffArr = ["apple",["box","phone"],"computer","people"];
+        let [apple,[box,phone],computer,people] = stuffArr;
+
+        // 不定元素
+        let stuffArr2 = ["apple","box","phone","computer"];
+        let [apple2,...leftStuff] = stuffArr2;
+        console.log(...leftStuff);
+
+
+        let ob = {
+            namexx: "yes",
+            age: 5
+        }
+
+    </script>
+</body>
+
+</html>

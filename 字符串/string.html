@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+   <script>
+      //UFT-16已经不满足包含更多的文字，
+      let text = "☺啦啦我是5665sdgsdg";
+      console.log(text.charCodeAt(0), "𠮷".length);
+      // 字符串中更多的API
+      // ES5中使用 indexOf就可以解决大多问题
+      let text2 = "今天我真的时爱你爱你爱你爱你啊 你可不要让我失望啊。";
+      // 返回值为Boolean型
+      console.log(text2.includes("爱你"));
+      // 查看是否以某个值开头、结尾
+      console.log(text2.startsWith("今"));
+      console.log(text2.endsWith("。"));
+      // 同时还可以给定第二个参数，表示从哪个位置开始查找
+      console.log(text2.includes("爱你"), 2);
+      console.log(text2.startsWith("我"), 2);
+      console.log(text2.endsWith("。"), 2);
+      // 重复字符串,传入数字表示重复几次
+      let text3 = "我是爱你的";
+      console.log(text3.repeat(3));
+      // 正则表达式 修饰符y
+      let text4 = "start yes end";
+      let reg1 = /yes/g;
+      let reg2 = /yes/y;
+      // 以第一个字符开头,如果从lastIndex位置开始没匹配到就不会往后
+      reg1.lastIndex = 0;
+      console.log(reg1.test(text4), reg2.test(text4));   // true  false
+
+
+      /**
+      * 模板字符串
+      */
+      let tempStr = `\`Hello \`world!`;
+      // 多行字符串 ES5
+      let multiLine = "Multiline \
+                        string";
+      // es6多行字符
+      let multiLineEs6 = `safasf
+      asgasgasg
+      sgasg
+      asg`;
+
+      // 字符串占位符
+      let name = "lala";
+      let age = 21;
+      // 通过使用 ${可以包含任何的js表达式}
+      let lalaStr1 = `My name is ${name}`;
+      let lalaStr2 = `I can say ${1 + 1 + name}`;
+      let lalaStr3 = `I can say $${[1, 5, 78, 26].join("*")}`;
+      let lalaStr4 = `I can say ${`${name + (45 + {})}` + "inner"}`
+
+      // 模板字符串的标记 前面的时tag是一个函数，会调用这个函数
+      let lalaTag = tag`I am a tag${name} yes ${age}`;
+      // arr是处理过的字符串数组，substitutions是${}中的各个值，返回的字符串作为lalaTag的值。
+      function tag(arr,...substitutions){
+         
+         return "I am tag" + substitutions[0] + "****" + substitutions[1];
+      }
+   </script>
+</body>
+
+</html>

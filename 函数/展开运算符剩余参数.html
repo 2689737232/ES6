@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <script>
+            // 展开对象
+            let obj = {
+                name: "lala",
+                age: 21
+            }
+            let lala = {
+                ...obj
+            }
+            // 展开数组
+            let arr = [45,78,6,8,7,"yes"];
+            // 将展开的各个元素收集到arr2中
+            function  getEachEl(...arr2) {
+                    for (let i = 0;i < arr2.length; i++){
+                        console.log(arr2[i]);
+                    }
+                console.log(arguments);
+            }
+            // 将数组展开
+            getEachEl(...arr);
+        </script>
+</body>
+</html>

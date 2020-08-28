@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * 类和函数都有声明式和表达式,类中自动为严格模式
+         */
+        class Person {
+            // 相当于构造函数
+            constructor(name) {
+                this.name = name;
+                this.value = 21;
+            }
+            // 相对于prototype.sayMyName = function(){...}
+            sayMyName() {
+                console.log(this.name);
+            }
+        }
+        Person.prototype.sayNo = function () {
+            console.log("I say NO!")
+        }
+        let lala = new Person("lala");
+        // 直接调用会报错 Person()
+
+        // 表达式
+        let Person2 = class {
+            // 相当于构造函数
+            constructor(name) {
+                this.name = name;
+                this.value = 21;
+            }
+            // 相对于prototype.sayMyName = function(){...}
+            sayMyName() {
+                console.log(this.name);
+            }
+        }
+
+        /**
+         * ES6将类也提升为一等公民
+         */
+        function createObj(classDef) {
+            return new classDef();
+        }
+        let obj = createObj(class {
+            constructor() {
+                this.value = Math.random() * 10;
+            }
+        })
+
+        /**
+         * get set
+         */
+        let computable = "computable"
+        class Lala {
+            constructor() {
+                this.value = Math.random();
+            }
+            // 同时可以向对象一样使用可计算名
+            [computable]() {
+                console.log("I am a computable function!")
+            }
+            get gatValue() {
+                return this.value;
+            }
+            set setValue(v) {
+                if (v < 0) {
+                    throw new Error("Can't set value less then 0");
+                }
+                this.value = v;
+            }
+        }
+        let me = new Lala();
+
+        /**
+        *   静态成员 
+        */
+        //es5实现
+        function Person3(name) {
+            this.name = name;
+        }
+        Person3.prototype.sayHi = function () {
+            console.log("hi");
+        }
+        // 静态方法。
+        Person3.create = function (name) {
+            return new Person3(name);
+        }
+
+        // ES6 
+        class Person4 {
+            constructor(name) {
+                this.name = name;
+            }
+            sayHi(){
+                console.log("hi");
+            }
+            static create(name){
+                return new Person4(name);
+            }
+        }
+        let lll = Person4.create("lll")
+        // 通过类创建的对象，只能枚举自己属性，原型上的不能。
+        for (var p in  lll){
+            console.log(p);
+        }
+    </script>
+</body>
+
+</html>

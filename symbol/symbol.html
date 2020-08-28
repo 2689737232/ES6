@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Symbol</title>
+</head>
+
+<body>
+    <script>
+        /**
+         *  Symbol创建的symbol永远不相等、不能被枚举
+         */
+
+        let firstName = Symbol("first name");
+        let person = {};
+        person[firstName] = "lala";
+        console.log(person, person[firstName]);
+        // 使用Symbol进行私有化属性，  但是 [不是完全的私有化]
+        function People(name) {
+            // 将符号定义在内部，外部不能访问和符号的唯一性。实现私有化
+            let setValue = Symbol("setValue");
+            this.value = Math.random();
+            // 私有属性
+            this[setValue] = function (v) {
+                if (v < 0) {
+                    return false;
+                }
+                this.value = v;
+                return true;
+            }
+            this.showValue = function () {
+                console.log(this.value);
+            }
+            // 实现只能在内部调用，
+            this.puls = function (v) {
+                this[setValue](v);
+            }
+        }
+        let y = new People();
+        // 但是通过 Object.getOwnPropertySymbols(传入对象)可以获得一个对象中的所有symbol数组，拿到数组后可以调用
+        // symbol共享
+        let uid = Symbol.for("lala");
+        let obj = {};
+        obj[uid] = "第一次for为创建,第二次for就直接使用";
+        // 第一次Symbol.for会在全局中注册，第二次会检索到这个Symbol
+        let uidDouble = Symbol.for("lala");
+        console.log(obj[uidDouble]);
+
+        /**
+         *   Symbol知名符号（公共符号、知名符号）
+         */
+        class XX {
+            constructor() {
+                this.name = "xx";
+            }
+            sayHi() {
+                console.log("hi");
+            }
+        }
+        let xx = new XX();
+        // 实际上在内部 为 XX[Symbol.hasInstance](xx);
+        console.log(xx instanceof XX);
+        Object.defineProperty(XX, Symbol.hasInstance, {
+            value: function (v) {
+                return false
+            }
+        });
+        console.log(xx instanceof XX);
+        let arr1 = ["start", 788],
+            arr2 = [78, 92, 1, 239, "end"];
+        Object[Symbol.isConcatSpreadable] = false;
+        console.log(arr1.concat("middle", arr2));  
+    </script>
+</body>
+
+</html>

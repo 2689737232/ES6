@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+   <script>
+      // 默认值
+      // function lala1(name, age = 21) {
+      //    console.log(name, age);
+      // }
+      // lala1("lala");
+
+      // arguments，在ES5非严格模式下可以更改arguments
+      function lala1(a, b) {
+         console.log(a == arguments[0], b == arguments[1]);  // true true
+         a = "c";
+         b = "d";
+         // 修改后，同样可以
+         console.log(a == arguments[0], b == arguments[1]); //  true true
+      }
+      //在ES5严格模式下更改arguments
+      function lala2(a, b) {
+         "use strict";
+         console.log(a == arguments[0], b == arguments[1]);  // true true
+         a = "c";
+         b = "d";
+         // 修改后不会改变
+         console.log(a == arguments[0], b == arguments[1]); //  false false
+      }
+      // 如果使用了 默认值那么arguments对象行为都会和ES5严格模式下保持一致。
+      function lala3(a, b = "b") {
+         console.log(a == arguments[0], b == arguments[1]);  // true true
+         a = "c";
+         b = "d";
+         // 修改后不会改变
+         console.log(a == arguments[0], b == arguments[1]); //  false false
+      }
+      lala1("a", "b");
+      lala2("a", "b");
+      lala3("a", "b");
+
+      // 默认参数的临时死区
+      function getValue(num) {
+         return ++num;
+      }
+      // 这样写就会报错 Cannot access 'n2' before initialization
+      // function add(n1 = getValue(n2), n2) {
+      //    return ni + n2;
+      // }
+      // add(undefinde,1);
+      // 和let一样有临时死区   
+      // let n1 = getValue(n2)
+      // let n2 = 1
+      function add(n1, n2 = getValue(n1)) {
+         let sum = n1 + n2;
+         console.log(sum);
+         return sum;
+      }
+      add(1,undefined);
+
+
+      /**
+      * 不定参数 ...为不确定参数个数，会将参数存入arr数组.以方便操作
+      */
+      function lalaF1(name,...arr){
+         console.log(name,arr);
+      }
+      lalaF1("lala",45,{age:25},1+1);
+      // 不定参数使用的限制
+      // function xx(name,...arr,last){} 这样就不行，不确定有多少个不定参数，不定参数后面不能有参数。
+
+      /**
+      *  展开运算符
+      */
+      let arr = [45,8,456,789,15,32,41,45];
+      console.log(Math.max(arr));  // max方法不能传入数组
+      console.log(Math.max(...arr));  // 通过...展开一个数组、
+      console.log(...arr);
+
+      /**
+      *  辨别函数的name属性
+      */
+      function myNameIsFunc(){
+         console.log("yes");
+      }
+      let  meToo = function(){
+         console.log("me too");
+      }
+      console.log(myNameIsFunc.name,meToo.name);
+
+      /**
+       * JS函数内部有[[Call]]和[[Constructor]]两个内部方法，当时函数调用的时候执行[[Call]]方法
+       *    当是new的时候执行[[Constructor]]方法
+       *  通过 new.target来判断是否是通过构造函数创建
+       *  在函数外调用new.target会有语法错误
+       */
+      // 如果是 new出来的会调用[[Constructor]]将new.target这个元属性(非对象的属性)设置为构造函数
+      // 如果是[[Call]] new.target为undefined
+      function  Person(name) {
+         console.log(new.target);
+         if(new.target){
+            this.name = name
+         }else {
+            throw new Error("Can't call")
+         }
+      }
+      // es5
+      function Person2(name) {
+         // 通过instanceof判断是不是new出来的
+         if(this instanceof  Person2){
+            this.name = name;
+         }else {
+            throw new Error("Can't call")
+         }
+      }
+
+   </script>
+</body>
+
+</html>

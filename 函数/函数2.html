@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /**
+     * 箭头函数
+     *  1. 箭头函数的this、arguments、super、new.target都是有定义是最近一层的非箭头函数决定
+     *  2. 不能通过new关键字调用，没有[[constructor]]方法
+     *  3. 没有原型，不存在prototype这个属性
+     *  4. 不可以改变函数中的this，在函数的生命周期内始终保持一致
+     *  5. 不支持arguments对象，箭头函数没有arguments绑定
+     *  6. 不支持重复的参数命名
+     */
+
+    let pp = a => ++a;
+    console.log(pp(45))
+
+    let lala = (name, age) => {
+        console.log(`My name is ${name} and My age is ${age}`);
+    }
+    lala("lala", 21);
+
+    // 创建立即执行函数
+    let iifm = ((name) => {
+        return () => {
+            console.log(name);
+        }
+    })("lala yes");
+    iifm();
+
+    // this问题
+    let lala2 = () => {
+        // 单纯的箭头函数 this指向window
+        console.log(this)
+    }
+    // 通过查找作用域链来确定this,并且不能通过bind、call、apply改变
+    let obj = {
+        name: `obj`,
+        wrapFunc() {
+            say: (() => {
+                console.log(this)
+            })()
+        }
+    };
+    let obj2 = {
+        name: `obj2`,
+        wrapFunc() {
+            // 不管有几个箭头函数，最后都会通过作用域链找到this
+            innerFunc: (() => {
+                say: (() => {
+                    console.log(this)
+                })()
+            })()
+        }
+    };
+    obj.wrapFunc();
+    obj2.wrapFunc();
+    //箭头函数比较简洁、比较适合用于数组的处理
+    let result = [45, 78, 78, 2, 99, 45, 78, 1, 543, 0, 36].sort((p, n) => p - n);
+
+    /**
+     *  尾调用
+     */
+    function factorial(n) {
+        if (n == 1) {
+            return 1;
+        } else {
+            return n * factorial(n - 1)
+        }
+    }
+
+    function factorial(n,p = 1) {
+        if (n == 1) {
+            return 1 + p;
+        } else {
+            let num = n + p;
+            // 必须放在最后一行代码、以函数执行作为返回值、在这种情况下尾调用就不会创建栈帧，而是清除并重用当前栈帧。
+            return factorial(n-1,num);
+        }
+    }
+    console.log(factorial(5));
+
+
+    
+      /**
+      * 获取函数的参数长度
+      */ 
+      function sayYes(name,age,height,ii){
+            console.log("jjj");
+      }
+      console.log(sayYes.length); // 4
+
+</script>
+</body>
+</html>

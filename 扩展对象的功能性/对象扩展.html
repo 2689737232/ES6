@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对象扩展</title>
+</head>
+<body>
+<script>
+    /**
+     * 对象字面量语法扩展
+     */
+    function createPerson(name, age) {
+        let obj1 = {
+            name: name,
+            age: age
+        }
+        // 可以消除这种属性和本地变量的名称重复
+        // 如果添加了没有的属性会报错
+        let obj2 = {
+            name,
+            age,
+            sayName() {    // 方法的简写，具有ES5中的方法特性,并且可以使用super关键字
+                console.log(`My name is ${this.name}`)
+            }
+        }
+        return obj2;
+    }
+
+    let lala = createPerson("lala", 21);
+    lala.sayName();
+
+    /**
+     * 可计算的对象属性名
+     */
+    let lastName = "last name";
+    let person = {
+        "first name": "la",
+        [lastName + "yes"]: "la"   // 对象字面量中使用方括号表示该属性是可计算的，方括号中的值会转化为字符串
+    }
+    console.log(person);
+
+    /**
+     * Object.assign 复制一个对象的所有属性值到另外一对象中
+     */
+    EventTarget.prototype = {
+        constructor: EventTarget,
+        emit: function () {
+            console.log("emit")
+        },
+        on: function () {
+            console.log("on")
+        }
+    }
+    let obj = {};
+    // 可以传入多个源对象
+    Object.assign(obj,EventTarget.prototype,{name:"lala"});
+    console.log(obj , EventTarget.prototype)
+
+
+    /**
+     * 重复对象字面量属性
+     */
+    let obj2 ={
+        name: "jk",
+        name: "lala"
+    }
+
+    /**
+     * 标准的获取原型和更改原型方法
+     */
+    //ES5中有标准的获取原型方法
+    function  Person(name) {
+        this.name = name;
+        this.sayName = function () {
+            console.log(this.name)
+        }
+    }
+
+    let lala2 = new Person("lala");
+    console.log(Object.getPrototypeOf(lala2));
+    let newPrototype = {
+        sayHi: function () {
+            console.log("Hi !")
+        }
+    }
+    Object.setPrototypeOf(lala2,newPrototype);
+    console.log(Object.getPrototypeOf(lala2));
+
+    /**
+     * super,在简写的函数中可以使用
+     */
+    let person3 ={
+        sayYes(){
+            console.log("yes")
+        }
+    }
+    let lala3 = {
+        sayYes() {
+            super.sayYes();
+        }
+    }
+    Object.setPrototypeOf(lala3,person3);
+    lala3.sayYes();
+    // let badGuy = {
+    //     普通的函数没有super
+    //     sayYes: function () {
+    //         super.sayYes();
+    //     }
+    // }
+    // Object.setPrototypeOf(badGuy,person3);
+    // badGuy.sayYes();
+</script>
+</body>
+</html>

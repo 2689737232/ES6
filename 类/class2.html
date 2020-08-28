@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+   <script>
+
+      class Person {
+         constructor(name, age) {
+            this.name = name;
+            this.age = age;
+         }
+         get age() {
+            return this._age;
+         }
+         set age(v) {
+            if (v < 0 || v > 150) {
+               throw "Can't set invalid value to age";
+            }
+            this._age = v;
+         }
+         // 在类中 箭头this函数指向class。但是现在sayHi就不在原型上，而是属性
+         sayHi = () => {
+            console.log(this.name + ",hi");
+         }
+      }
+      let lala = new Person("lala", 2);
+      let sayHi = lala.sayHi;
+
+      /**
+      * 类的继承
+      */
+      
+   </script>
+</body>
+
+</html>

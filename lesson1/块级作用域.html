@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <div class="lala">
+    </div>
+    <script>
+        /**
+         * 在ES5中只有  全局作用域和函数作用域
+         * 在ES6中  多了块级作用域，执行完后块级作用域就销毁
+         */
+
+        var lala = document.getElementsByClassName("lala")[0];
+        // 闭包问题
+        for (var i = 0; i < 10; i++) {
+            // 就算在循环中再定义 var j = i; 同样的j也会变量提升。
+            var btn = document.createElement("button");
+            btn.innerText = "按钮" + i;
+            // 不管点击按钮都会打印10,，因为变量声明提升。[var i]被提升到window下，所以每个btn中引用的都是全局下的同一个i
+            btn.addEventListener("click", function () {
+                console.log(i)
+            })
+            lala.append(btn);
+        }
+
+
+
+
+        // 使用let const的变量不会被提升、重复声明、不会挂载到全局变量
+        // console.log(xx);   报错
+        // let xx = 80;
+
+        // 一般常量都应该大写，多个单词之间使用下划线连接。
+        const OBJ = {
+            name: "guagua",
+            age: 18
+        }
+        // 不可以修改引用，但是可以修改里面的属性
+        OBJ.name = "lala";
+        OBJ.age = 21;
+
+        // 临时死区
+        console.log(typeof yes)
+        let j = 45
+        if (j) {
+            let yes = 45;
+        }
+
+
+    // 临时死区
+    // js引擎在扫描代码时遇到let const会将它们添加到临死死区中，在这些变量声明语句前，有代码使用这些临时死区中的变量会报错。
+    // 只有执行过变量声明后 才从临时死区中移出来。
+
+
+    // console.log(t);   // 报错 Uncaught ReferenceError: Cannot access 't' before initialization
+    // let t = 45;
+
+
+
+    </script>
+</body>
+
+</html>
