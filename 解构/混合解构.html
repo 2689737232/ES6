@@ -1,61 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>混合解构</title>
 </head>
+
 <body>
-<script>
-    /**
-     * 混合解构
-     */
-    let mixNode = {
-        type: "mixNode",
-        name: "mix",
-        local: {
-            inner: {
-                innerName: "inner"
-            }
-        },
-        arr: ["JavaScript", "Java", "Python", "Go", "PHP"]
-    }
-    let {type, name, local: {inner: {innerName}}, arr: [JavaScript, Java, Python, Go, ...otherLanguage]} = mixNode;
+    <script>
+        /**
+         * 混合解构
+         */
+        let mixNode = {
+            type: "mixNode",
+            name: "mix",
+            local: {
+                inner: {
+                    innerName: "inner"
+                }
+            },
+            arr: ["JavaScript", "Java", "Python", "Go", "PHP"]
+        }
+        let { type, name, local: { inner: { innerName } }, arr: [JavaScript, Java, Python, Go, ...otherLanguage] } = mixNode;
 
-    /**
-     * 解构参数
-     */
-    function setCookie1(name, value, options) {
-        options = options || {};
+        /**
+         * 解构参数
+         */
+        function setCookie1(name, value, options) {
+            options = options || {};
 
-        let secure = options.secure,
-            path = options.path,
-            domain = options.domain;
-        // 设置cookie的代码
-    }
+            let secure = options.secure,
+                path = options.path,
+                domain = options.domain;
+            // 设置cookie的代码
+        }
 
-    // 通过解构的解构参数的形式
-    function setCookie2(name, value, {secure, path, domain}) {
-        // 设置cookie的代码
-    }
+        // 通过解构的解构参数的形式
+        function setCookie2(name, value, { secure, path, domain }) {
+            // 设置cookie的代码
+        }
 
-    // 如果不传入第三个参数会报错
-    // setCookie2("lala","45")
-    // 可以通过提供默认值额的方式解决
-    function setCookie3(name, value, {secure = setCookiesfaults.secure, path = setCookiesfaults.path, domain = setCookiesfaults.path} = setCookiesfaults) {
-        // 设置cookie的代码
-    }
+        // 如果不传入第三个参数会报错
+        // setCookie2("lala","45")
+        // 可以通过提供默认值额的方式解决
+        function setCookie3(name, value, { secure = setCookiesfaults.secure, path = setCookiesfaults.path, domain = setCookiesfaults.path } = setCookiesfaults) {
+            // 设置cookie的代码
+        }
 
-    function setCookie4(name, value, {secure = false, path = "/", domain = "xiaohaimao.cn"}) {
-        // 设置cookie的代码
-    }
+        function setCookie4(name, value, { secure = false, path = "/", domain = "xiaohaimao.cn" }) {
+            // 设置cookie的代码
+        }
 
 
-    let setCookiesfaults = {
-        secure: true,
-        path: "/",
-        domain: "blog.xiaohaimao.cn"
-    }
-    setCookie3("name", 45)
-</script>
+        let setCookiesfaults = {
+            secure: true,
+            path: "/",
+            domain: "blog.xiaohaimao.cn"
+        }
+        setCookie3("name", 45)
+    </script>
 </body>
+
 </html>

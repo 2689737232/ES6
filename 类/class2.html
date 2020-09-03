@@ -11,9 +11,10 @@
    <script>
 
       class Person {
-         constructor(name, age) {
+         constructor(name, age,yes) {
             this.name = name;
             this.age = age;
+            this._yes = yes;
          }
          get age() {
             return this._age;
@@ -24,12 +25,18 @@
             }
             this._age = v;
          }
+         get yes(){
+            return this._yes;
+         }
+         set yes(v){
+            this._yes = v;
+         }
          // 在类中 箭头this函数指向class。但是现在sayHi就不在原型上，而是属性
          sayHi = () => {
             console.log(this.name + ",hi");
          }
       }
-      let lala = new Person("lala", 2);
+      let lala = new Person("lala", 2,"xxxxx");
       let sayHi = lala.sayHi;
 
       /**

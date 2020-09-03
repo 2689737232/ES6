@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+   <script>
+      /**
+      * set是一种无重复元素的列表，通常的做法是监测某个值是否存在。
+      */
+      let setLa = new Set();
+      // 向set中添加元素
+      setLa.add("45");
+      setLa.add(45);
+      setLa.add({
+         name: "lala"
+      });
+      console.log(setLa);
+      // 用于监测是否存在
+      console.log(setLa.has(45));
+      // set列表的长度
+      console.log(setLa.size);
+      // 移除set列表中的元素
+      setLa.delete(45);
+      // 移除所有
+      // setLa.clear();
+
+      /**
+      * set 的遍历方法
+      * val和 key两个值是一样的，因为set没有键名所ES6标准制定委员会最后规定了接收三个参数。
+      * self 就是set列表的本身
+      */
+      console.log("**************************************");
+      setLa.forEach(function (val, key, self) {
+         console.log(val, key, self);
+         console.log("\/n");
+      });
+
+      // 将set转化为数组,通过解构的方式
+      let set1 = new Set(["77", { name: "lala", age: 21 }, new Object(), 55]),
+         arr = [...set1];
+
+      // 过滤重复元素返回数组，通过set过滤
+      function eliminateDuplicates(items) {
+         return [...new Set(items)];
+      }
+      let arr1 = [1, 2, 3, 3, 3, 4, 5, 5];
+      let arr2 = eliminateDuplicates(arr1);
+      console.log(arr2);
+
+
+      /**
+      * weak set弱引用集合
+      * set集合会保留对引用值得引用。
+      * 但是有时候就是不想保留这些引用
+      */
+      let set = new Set(),
+         key = {
+            name: "yes"
+         };
+      set.add(key);
+      key = null;
+      key = [...set][0];   // 又重新获取到了引用。
+
+      // 通过WeakSet创建弱set集合
+      let weakSet = new WeakSet(),
+      key2 = {name: 45}
+      weakSet.add(key2);
+      key2 = null;
+      console.log(weakSet);
+
+      
+   </script>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+   <script>
+      function Person(name, age) {
+         this.name = name;
+         this.age = age;
+      }
+      Person.prototype.sayHi = function () {
+         console.log(name + "say Hi!");
+      }
+      Person.prototype.codingAge = 3;
+
+
+      function Lala(name, age, hobby) {
+         this.name = name;
+         this.age = age;
+         this.hobby = hobby;
+      }
+
+      /**
+       * 形成原型链
+      * 这样继承会多继承一些没有用的属性  如Person实例的name、age
+      */
+      Lala.prototype = new Person();
+      let l = new Lala("lala", 21, "xxxxx");
+
+      /**
+      * 圣杯继承
+      */
+      function Yeye(name, age, hobby) {
+         this.name = name;
+         this.age = age;
+         this.hobby = hobby;
+      }
+      // 空函数
+      function T() { }
+      T.prototype = Person.prototype;
+      // 获得F的实例，形成原型链可以访问到Person原型上的属性、方法。
+      Yeye.prototype = new T();
+      Yeye.prototype.constructor = Yeye;
+
+      let y = new Yeye("yeye", 21, "xxxxx");
+
+      function Jaja(name, age, hobby) {
+         this.name = name;
+         this.age = age;
+         this.hobby = hobby;
+      }
+      Jaja.prototype = Object.create(Person.prototype,{
+         constructor:{
+            value: Jaja,
+            writable: false,
+            configurable: true,
+            enmerable: true
+         }
+      });
+
+      let j = new Jaja("jaja", 21, "xxxxx")
+      
+
+      console.log(j instanceof Jaja, j instanceof Person);  // true true
+
+   </script>
+</body>
+
+</html>

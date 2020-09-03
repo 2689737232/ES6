@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+   <script>
+      /**
+      * map 和 set一样都有三个通用的方法
+      * has()、delete()、clear()
+      */
+      let map = new Map();
+      map.set("name", "lala");
+      map.set("age", 21);
+      map.set(Symbol.for("tag"), "symbol");
+      console.log(map.has("name"));
+      map.delete(Symbol.for("tag"));
+      console.log(map.get("name"));
+      
+   </script>
+</body>
+
+</html>

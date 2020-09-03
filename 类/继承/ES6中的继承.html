@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+   <script>
+      class Person {
+         constructor(name, age) {
+            this.name = name;
+            this.age = age;
+         }
+         sayHi() {
+            console.log(`${this.name} say Hi!`);
+         }
+      }
+
+      /**
+       * 继承其他类的类叫做派生类
+      *  如果派生类不使用super函数会报错，而若果在非派生类中使用super会报错。
+      */
+      class Lala extends Person {
+         constructor(name, age, hobby) {
+            // this.hobby = hobby;  不能在super前使用this
+            // 等价于  Person.call(this,name,age)
+            super(name, age);
+            this.hobby = hobby;
+         }
+         // 覆盖并遮盖父类的方法
+         sayHi(){
+            console.log(`I say NO! I will never tell you my true name.`);
+         }
+         // 通过super可以调用
+         sayHiii(){
+            super.sayHi();
+         }
+      }
+      let l = new Lala("lala",21,"xxxxx");
+      console.log(l instanceof Lala,l instanceof Person);   // true true
+
+
+      
+   </script>
+</body>
+
+</html>
