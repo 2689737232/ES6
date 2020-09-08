@@ -50,7 +50,7 @@ body {
 .pipe-up {
    position: absolute;
    width: 48px;
-   height: 193px;
+   height: 200px;
    background-image: url(./img/s2.png);
    left: 200px;
    top: 0;
@@ -64,12 +64,16 @@ body {
    left: 100px;
    top: 50px;
    background-image: url(./img/s2.png);
-   background-position:283px 42px;
-}
-.bird.fly1{
-   background-position:227px 42px;
-}
-.bird.fly2{
-   background-position:171px 42px;
+   background-position: 283px 42px;
 }
 
+.bird.fly1 {
+   background-position: 283px 42px;
+}
+
+.bird.fly2 {
+   background-position: 227px 42px;
+}
+.bird.fly3 {
+   background-position: 171px 42px;
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+   <script type="module">
+      import yes, { Person, a, Lala as L } from "./module/value.js";
+      // 会有缓存，多次导入只会执行一次。
+      import xx from "./module/lala.js";
+      console.log(yes, Person, a, L);
+   </script>
+ 
+</body>
+
+</html>

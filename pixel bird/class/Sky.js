@@ -17,16 +17,9 @@ class Sky extends Square {
 }
 
 
-let sky = document.getElementsByClassName("background")[0],
-   skyStyles = getComputedStyle(sky),
-   skyWidth = parseFloat(skyStyles.width),
-   skyHeight = parseFloat(skyStyles.height),
-   skyLeft = parseFloat(skyStyles.left),
-   skyTop = parseFloat(skyStyles.top);
 
-let s = new Sky(skyWidth, skyHeight, 0, 0, -3, sky);
 
-setInterval(() => {
-   s.move();
-   s.render();
-}, 20)
+// setInterval(() => {
+//    s.move("x");
+//    s.render();
+// }, 30)
