@@ -11,10 +11,12 @@
    <script type="module">
       import yes, { Person, a, Lala as L } from "./module/value.js";
       // 会有缓存，多次导入只会执行一次。
-      import xx from "./module/lala.js";
+      // import xx from "./module/lala.js";
+      import  * as xx  from "./module/yeye.js"
       console.log(yes, Person, a, L);
+      console.log(xx);
    </script>
- 
+
 </body>
 
 </html>
