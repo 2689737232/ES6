@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+   <script>
+      /**
+      * @description:  
+      * @modifyContent:
+      * @author: lala
+      * @date: 2020-09-11 23:24:34
+      */
+
+      // 一般使用for循环打印
+      let arr = ["lala", "yeye", "biabia", "tata", "jaja", "lele"];
+      for (var i = 0; i < arr.length; i++) {
+         console.log(arr[i]);
+      }
+      // 迭代器是一种特殊的对象，所有迭代器对象都有一个next方法。每次调用next都返回一个对象{value:xxx,done:[true/false]}
+      function createIterator(arr) {
+         let i = 0;
+         return {
+            next() {
+               let value = arr[i++],
+                  done = i >= arr.length - 1;
+               return {
+                  value,
+                  done
+               }
+            }
+         }
+      }
+      let arrIterator = createIterator(arr);
+      console.log(arrIterator.next());   // {value: "lala", done: false}
+      console.log(arrIterator.next());
+      console.log(arrIterator.next());
+      console.log(arrIterator.next());
+      console.log(arrIterator.next());
+      console.log(arrIterator.next());
+      console.log(arrIterator.next());  // {value: undefined, done: true}
+
+
+      // 生成器就是返回迭代器的函数
+      function* createIterator2() {
+         yield 1;
+         yield 2;
+         yield 3;
+      }
+      let vIterator = createIterator2();
+      console.log(vIterator.next());   // {value: 1, done: false}
+      console.log(vIterator.next());
+      console.log(vIterator.next());
+      console.log(vIterator.next());   // {value: undefined, done: true}
+
+
+      function* createIterator3(arr) {
+         // 注意yield只能在生成器内部使用，如果在生成器内部中定义了函数，在这个函数中使用也是不行的。
+         for (let i = 0; i < arr.length; i++) {
+            yield arr[i];
+         }
+      }
+      let arrIterator3 = createIterator3(arr);
+      console.log(arrIterator3.next());
+      console.log(arrIterator3.next());
+      console.log(arrIterator3.next());
+      console.log(arrIterator3.next());
+      console.log(arrIterator3.next());
+      console.log(arrIterator3.next());
+
+
+   </script>
+</body>
+
+</html>
